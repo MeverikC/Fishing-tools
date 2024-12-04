@@ -1,5 +1,5 @@
 ## Fishing tools
-上班摸鱼🐟小ap
+上班摸鱼🐟小app
 
 ### 下载
 [发行版地址](https://gitee.com/MeverikC/fishing-tools/releases/tag/v1.0-master) <br>
