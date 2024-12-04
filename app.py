@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import filedialog, messagebox
 
+
 class TextPaginator:
     def __init__(self, root):
         self.root = root
@@ -64,10 +65,12 @@ class TextPaginator:
 
     def create_callback(self, action):
         """创建一个快捷键回调函数"""
+
         def callback(event):
             method = getattr(self, action, None)
             if method:
                 method(event)
+
         return callback
 
     def open_file(self):
@@ -176,6 +179,7 @@ class TextPaginator:
         y = self.root.winfo_y() - self.drag_start_y + event.y
         self.root.geometry(f"+{x}+{y}")
 
+
 def main():
     root = tk.Tk()
     root.geometry("300x100")  # 设置窗口大小
@@ -183,6 +187,7 @@ def main():
     app.bind_shortcuts()  # 确保快捷键被绑定
     root.protocol("WM_DELETE_WINDOW", app.quit_program)  # 覆盖关闭窗口动作
     root.mainloop()
+
 
 if __name__ == "__main__":
     main()
