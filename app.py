@@ -78,7 +78,7 @@ class TextPaginator:
 
         return callback
 
-    def open_file(self, event: None):
+    def open_file(self, event=None):
         # 打开文件对话框
         file_path = filedialog.askopenfilename(filetypes=[("Text files", "*.txt")])
         if not file_path:
@@ -137,7 +137,7 @@ class TextPaginator:
             self.root.config(menu="")  # 移除菜单
             self.root.wm_attributes("-topmost", True)  # 设置窗口置顶
 
-    def set_page_size(self, event: None):
+    def set_page_size(self, event=None):
         # 设置每页字符数
         def save_page_size():
             try:
@@ -184,7 +184,7 @@ class TextPaginator:
         y = self.root.winfo_y() - self.drag_start_y + event.y
         self.root.geometry(f"+{x}+{y}")
 
-    def jump_to_page(self, event: None):
+    def jump_to_page(self, event=None):
         def jump_to_page_func():
             try:
                 page_number = int(entry.get())
