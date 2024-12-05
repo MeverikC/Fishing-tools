@@ -24,6 +24,9 @@
 >    * 下一页: `down` || ↓
 >    * 隐藏/显示边框及菜单: `ctrl+alt+;`
 >    * 最小化窗口: `esc`
+>    * 设置每页字符数: `ctrl+alt+p`
+>    * 页码跳转: `ctrl+alt+o`
+>    * 打开文件: `ctrl+o`
 
 ---
 ### 效果预览
@@ -35,3 +38,5 @@
 ![](./static/images/option.png)
 4. 隐藏边框 <br>
 ![](./static/images/hide-border.png)
+5. 页码跳转
+![](./static/images/page_jump.png)

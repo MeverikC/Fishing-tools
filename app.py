@@ -15,10 +15,13 @@ class TextPaginator:
 
         # 快捷键配置
         self.shortcuts = {
-            "minimize_window": "<Escape>",
-            "prev_page": "<Up>",
-            "next_page": "<Down>",
-            "toggle_border": "<Control-Alt-;>",  # 新增快捷键
+            "minimize_window": "<Escape>",  # 最小化窗口
+            "prev_page": "<Up>",  # 上一页
+            "next_page": "<Down>",  # 下一页
+            "toggle_border": "<Control-Alt-;>",  # 显示/隐藏边框
+            "set_page_size": "<Control-Alt-p>",  # 设置每页字符数
+            "jump_to_page": "<Control-Alt-o>",  # 页码跳转
+            "open_file": "<Control-o>",  # 打开文件
         }
 
         # 创建界面
@@ -35,7 +38,8 @@ class TextPaginator:
     def create_widgets(self):
         # 文本显示框
         self.text_display = tk.Text(self.root, wrap="none", font=("Arial", 10), height=1, state=tk.DISABLED)
-        self.text_display.pack(expand=True, fill="both", padx=10, pady=5)
+        # self.text_display.pack(expand=True, fill="both", padx=10, pady=5)
+        self.text_display.grid(row=0, column=0, columnspan=5, sticky="nsew")
 
         # 菜单
         self.menubar = tk.Menu(self.root)
@@ -46,6 +50,7 @@ class TextPaginator:
         file_menu.add_command(label="上一页", command=self.prev_page)
         file_menu.add_command(label="下一页", command=self.next_page)
         file_menu.add_command(label="设置每页字符数", command=self.set_page_size)
+        file_menu.add_command(label="跳转", command=self.jump_to_page)
         file_menu.add_separator()
         file_menu.add_command(label="退出", command=self.quit_program)
         self.menubar.add_cascade(label="文件", menu=file_menu)
@@ -73,7 +78,7 @@ class TextPaginator:
 
         return callback
 
-    def open_file(self):
+    def open_file(self, event: None):
         # 打开文件对话框
         file_path = filedialog.askopenfilename(filetypes=[("Text files", "*.txt")])
         if not file_path:
@@ -101,11 +106,11 @@ class TextPaginator:
 
         self.current_page = page_index
         content = self.pages[self.current_page]
-        page_info = f"Page {self.current_page + 1}/{len(self.pages)}"
+        page_info = f"Page: {self.current_page + 1}/{len(self.pages)}"
 
         self.text_display.config(state=tk.NORMAL)
         self.text_display.delete(1.0, tk.END)
-        self.text_display.insert(tk.END, f"{content}\n{page_info}")
+        self.text_display.insert(tk.END, f"{content}  {page_info}")
         self.text_display.config(state=tk.DISABLED)
 
     def prev_page(self, event=None):
@@ -132,7 +137,7 @@ class TextPaginator:
             self.root.config(menu="")  # 移除菜单
             self.root.wm_attributes("-topmost", True)  # 设置窗口置顶
 
-    def set_page_size(self):
+    def set_page_size(self, event: None):
         # 设置每页字符数
         def save_page_size():
             try:
@@ -179,10 +184,33 @@ class TextPaginator:
         y = self.root.winfo_y() - self.drag_start_y + event.y
         self.root.geometry(f"+{x}+{y}")
 
+    def jump_to_page(self, event: None):
+        def jump_to_page_func():
+            try:
+                page_number = int(entry.get())
+                if 0 < page_number <= len(self.pages):
+                    self.display_page(page_number - 1)
+                    jump_to_page_window.destroy()
+                else:
+                    messagebox.showerror("错误", "请输入有效的页码！")
+            except ValueError:
+                messagebox.showerror("错误", "请输入有效的页码！")
+
+        # 添加跳转页码输入框和按钮
+        jump_to_page_window = tk.Toplevel(self.root)
+        jump_to_page_window.title("页数跳转")
+        jump_to_page_window.geometry("300x100")
+
+        tk.Label(jump_to_page_window, text="想要跳转的页数:").pack(pady=10)
+        entry = tk.Entry(jump_to_page_window)
+        entry.pack(pady=5)
+
+        tk.Button(jump_to_page_window, text="跳转", command=jump_to_page_func).pack(pady=5)
+
 
 def main():
     root = tk.Tk()
-    root.geometry("300x100")  # 设置窗口大小
+    root.geometry("550x50")  # 设置窗口大小
     app = TextPaginator(root)
     app.bind_shortcuts()  # 确保快捷键被绑定
     root.protocol("WM_DELETE_WINDOW", app.quit_program)  # 覆盖关闭窗口动作
