@@ -38,5 +38,5 @@
 ![](./static/images/option.png)
 4. 隐藏边框 <br>
 ![](./static/images/hide-border.png)
-5. 页码跳转
+5. 页码跳转 <br>
 ![](./static/images/page_jump.png)
