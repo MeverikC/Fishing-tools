@@ -2,7 +2,8 @@
 上班摸鱼🐟小app
 
 ### 下载
-[发行版地址](https://gitee.com/MeverikC/fishing-tools/releases/tag/v1.0-master) <br>
+[gitee releases](https://gitee.com/MeverikC/fishing-tools/releases) <br>
+[github releases](https://github.com/MeverikC/Fishing-tools/releases) <br>
 > 因为 `.exe` 没有签名, 所有可能会被识别成病毒或有威胁的文件, 若无法下载可以克隆项目直接运行源码
 > ```bash
 > git clone https://gitee.com/MeverikC/fishing-tools.git
